@@ -4,25 +4,36 @@
 
 
     let deck         = [];
-    const tipos      = ['C','D','H','S'];
-    const especiales = ['A','J','Q','K'];
+    const tipos      = ['C','D','H','S'],
+          especiales = ['A','J','Q','K'];
 
-    let puntosJugador = 0;
-    let puntosComputadora = 0; 
+    // let puntosJugador = 0,
+    //     puntosComputadora = 0; 
+    let puntosJugadores = [];
 
     //Referencias del HTML
 
-    const btnPedir         = document.querySelector('#btnPedir');
-    const btnDetener       = document.querySelector('#BtnDetener');
-    const btnNuevo         = document.querySelector('#btnNuevo');
+    const btnPedir         = document.querySelector('#btnPedir'),
+          btnDetener       = document.querySelector('#BtnDetener'),
+          btnNuevo         = document.querySelector('#btnNuevo');
 
-    const divCartasJugador = document.querySelector('#jugador-cartas');
-    const divCartasComputadora = document.querySelector('#Computadora-cartas');
-    const puntossmall      = document.querySelectorAll('small');
+    const divCartasJugador = document.querySelector('#jugador-cartas'),
+          divCartasComputadora = document.querySelector('#Computadora-cartas'),
+    
+          puntossmall      = document.querySelectorAll('small');
+    
+    
+    //Esta funcion inicializa el juego
+    const inicializarJuego = ( numJugadores = 1 )=> {
+        deck = crearDeck();
+        for ( let i = 0 ; i<numJugadores; i++ ){
+            puntosJugadores.push(0);
+        }
+    }
 
     //Crea una nueva baraja
     const crearDeck = ()=>{
-        
+        deck = [];
         for(let i = 2;i<=10;i++){
         
             for(let tipo of tipos ){
@@ -36,11 +47,11 @@
 
             }
         }
-        deck = _.shuffle  (deck);
-        return deck;
+         
+        return _.shuffle  (deck);
 
     }
-    crearDeck();
+    
 
     //Esta  funcion permite tomar una carta
 
@@ -50,12 +61,11 @@
             throw 'No hay cartas en el deck';
 
         }
-        const carta = deck.pop();
-        return carta
+        return deck.pop();
 
     }
 
-    //pedirCarta();
+    //Obtiene el valor de la carta con letra;
 
     const valorCarta = (carta) =>{
 
@@ -77,7 +87,11 @@
         // console.log( puntos );
 
     }
+    const acumularPuntos =() =>{
 
+
+
+    }
     //Turno de la computadora
 
     const trunoComputadora = ( puntosMinimos)=>{
@@ -118,6 +132,7 @@
     btnPedir.addEventListener('click', () =>{
 
         const carta = pedirCarta();
+
         puntosJugador = puntosJugador + valorCarta( carta );
         puntossmall[0].innerText = puntosJugador;
 
@@ -151,8 +166,11 @@
     });
 
     btnNuevo.addEventListener('click' ,()=>{
-        deck = [];
-        deck = crearDeck()
+        
+        inicializarJuego();
+        
+        // deck = [];
+        // deck = crearDeck()
         puntosComputadora = 0 ;
         puntosJugador = 0;
 
