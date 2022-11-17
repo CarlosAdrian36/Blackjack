@@ -180,7 +180,7 @@ const miModulo = (() => { //Estos nos ayudan a que no se accedan al codigo
     btnDetener.addEventListener('click',()=>{
         btnDetener.disabled = true;
         btnPedir.disabled = true;
-        trunoComputadora( puntosJugador );
+        trunoComputadora( puntosJugadores[0] );
     });
 
     btnNuevo.addEventListener('click' ,()=>{
